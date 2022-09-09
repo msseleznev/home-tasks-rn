@@ -1,16 +1,26 @@
 import {FlatList, ListRenderItem, StyleSheet, View} from "react-native";
 import React from "react";
-import {useAppSelector} from "../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {TaskType} from "../../types/types";
 import {TaskItem} from "./TaskItem";
+import {changeStatus, removeTask} from "../../store/homeTasksSlice";
 
 export const TasksList = () => {
     const homeTasks = useAppSelector(state => state.homeTasksSlice.homeTasks)
+    const dispatch = useAppDispatch()
 
-    const render: ListRenderItem<TaskType> = ({item, }) => {
+    const removeTaskHandler = (id: number) => {
+        dispatch(removeTask({id}))
+    }
+    const changeStatusHandler = (id: number, status: boolean) => {
+        dispatch(changeStatus({id, status}))
+    }
 
+    const render: ListRenderItem<TaskType> = ({item,}) => {
         return (
-            <TaskItem homeTask={item}/>
+            <TaskItem homeTask={item}
+                      removeTask={removeTaskHandler}
+                      changeTaskStatus={changeStatusHandler}/>
         )
     }
     return (

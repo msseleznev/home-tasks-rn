@@ -1,26 +1,39 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {width} from "../constants/consttants";
-import React, {useState} from "react";
+import React from "react";
 import {TaskType} from "../../types/types";
 import {CheckBox} from "./CheckBox/CheckBox";
 import {SvgBin} from "../../assets/svg/SvgBin";
 
 type TaskItemPropsType = {
     homeTask: TaskType
+    changeTaskStatus: (id: number, status: boolean) => void
+    removeTask: (id: number) => void
 }
 
-export const TaskItem: React.FC<TaskItemPropsType> = ({homeTask,}) => {
-    const [check, setCheck] = useState(false)
+export const TaskItem: React.FC<TaskItemPropsType> = (
+    {
+        homeTask: {id, body, title, status},
+        changeTaskStatus,
+        removeTask
+    }) => {
+    const onChangeHandler = () => {
+        changeTaskStatus(id, !status)
+    }
+    const onPressHandler = () => {
+        removeTask(id)
+    }
 
-    const finalStyle = !check ? styles.body : styles.isDoneBody
+    const finalStyle = !status ? styles.body : styles.isDoneBody
     return (
         <View style={styles.container}>
-            <CheckBox onPress={() => setCheck(!check)} isChecked={check}/>
+            <CheckBox onPress={onChangeHandler} isChecked={status}/>
             <View style={styles.taskContainer}>
-                <Text style={styles.title}>{homeTask.title}</Text>
-                <Text style={finalStyle}>{homeTask.body}</Text>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={finalStyle}>{body}</Text>
             </View>
-            <TouchableOpacity style={styles.bin}>
+            <TouchableOpacity style={styles.bin}
+                              onPress={onPressHandler}>
                 <SvgBin/>
             </TouchableOpacity>
 
