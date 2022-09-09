@@ -17,7 +17,7 @@ const initialState: HomeTasksSliceType = {
         },
         {
             id: 2,
-            title: 'РУсский язык',
+            title: 'Русский язык',
             body: 'Учебник, стр. 4, упр. 36 а, б.',
             isDone: false
         },
