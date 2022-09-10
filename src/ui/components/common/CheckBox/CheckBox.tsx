@@ -1,7 +1,7 @@
 import {Pressable, StyleSheet, View} from "react-native";
 import React from "react";
-import {SvgDone} from "../../../assets/svg/SvgDone";
-import {SvgUndone} from "../../../assets/svg/SvgUndone";
+import {SvgDone} from "../../../../assets/svg/SvgDone";
+import {SvgUndone} from "../../../../assets/svg/SvgUndone";
 
 
 type CheckBoxPropsType = {

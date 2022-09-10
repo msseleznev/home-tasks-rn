@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity} from "react-native";
+import {Pressable, StyleSheet, Text} from "react-native";
 import React from "react";
 
 
@@ -10,9 +10,9 @@ export const MyButton: React.FC<ButtonPropsType> = ({onPress}) => {
 
 
     return (
-        <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Pressable style={styles.button} onPress={onPress}>
             <Text style={styles.title}>Добавить</Text>
-        </TouchableOpacity>
+        </Pressable>
     );
 };
 const styles = StyleSheet.create({

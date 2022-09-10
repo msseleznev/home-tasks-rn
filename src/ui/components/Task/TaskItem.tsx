@@ -1,9 +1,9 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {width} from "../constants/consttants";
+import {width} from "../../constants/constants";
 import React from "react";
-import {TaskType} from "../../types/types";
-import {CheckBox} from "./CheckBox/CheckBox";
-import {SvgBin} from "../../assets/svg/SvgBin";
+import {TaskType} from "../../../types/types";
+import {CheckBox} from "../common/CheckBox/CheckBox";
+import {SvgBin} from "../../../assets/svg/SvgBin";
 
 type TaskItemPropsType = {
     homeTask: TaskType
