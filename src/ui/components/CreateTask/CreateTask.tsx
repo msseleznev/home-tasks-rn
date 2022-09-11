@@ -19,7 +19,7 @@ export const CreateTask: React.FC<CreateTaskPropsType> = ({setModalVisible}) => 
                 id: Date.now(),
                 title: titleValue,
                 body: bodyValue,
-                status: false
+                isDone: false
             }))
             setModalVisible(false)
         }

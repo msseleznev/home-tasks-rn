@@ -7,27 +7,27 @@ import {SvgBin} from "../../../assets/svg/SvgBin";
 
 type TaskItemPropsType = {
     homeTask: TaskType
-    changeTaskStatus: (id: number, status: boolean) => void
+    changeTaskStatus: (id: number, isDone: boolean) => void
     removeTask: (id: number) => void
 }
 
 export const TaskItem: React.FC<TaskItemPropsType> = (
     {
-        homeTask: {id, body, title, status},
+        homeTask: {id, body, title, isDone},
         changeTaskStatus,
         removeTask
     }) => {
     const onChangeHandler = () => {
-        changeTaskStatus(id, !status)
+        changeTaskStatus(id, !isDone)
     }
     const onPressHandler = () => {
         removeTask(id)
     }
 
-    const finalStyle = !status ? styles.body : styles.isDoneBody
+    const finalStyle = !isDone ? styles.body : styles.isDoneBody
     return (
         <View style={styles.container}>
-            <CheckBox onPress={onChangeHandler} isChecked={status}/>
+            <CheckBox onPress={onChangeHandler} isChecked={isDone}/>
             <View style={styles.taskContainer}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={finalStyle}>{body}</Text>

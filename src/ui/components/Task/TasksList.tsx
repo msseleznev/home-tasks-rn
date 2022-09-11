@@ -6,14 +6,22 @@ import {TaskItem} from "./TaskItem";
 import {changeStatus, removeTask} from "../../../store/homeTasksSlice";
 import {MyButton} from "../common/Button/MyButton";
 import {CreateTask} from "../CreateTask/CreateTask";
-import {Sort} from "../Sort/Sort";
 import {ItemDivider} from "../common/ItemDivider/ItemDivider";
+import {Filter} from "../Filter/Filter";
 
 
 export const TasksList = () => {
 
-    const homeTasks = useAppSelector(state => state.homeTasksSlice.homeTasks)
+    const {homeTasks, filter} = useAppSelector(state => state.homeTasksSlice)
     const dispatch = useAppDispatch()
+
+    let filteredTasks = homeTasks
+    if (filter === "Выполненные") {
+        filteredTasks = homeTasks.filter(t => t.isDone)
+    }
+    if (filter === "Не выполненные") {
+        filteredTasks = homeTasks.filter(t => !t.isDone)
+    }
 
     const [modalVisible, setModalVisible] = useState(false);
     const isModalHandler = () => {
@@ -22,8 +30,8 @@ export const TasksList = () => {
     const removeTaskHandler = (id: number) => {
         dispatch(removeTask({id}))
     }
-    const changeStatusHandler = (id: number, status: boolean) => {
-        dispatch(changeStatus({id, status}))
+    const changeStatusHandler = (id: number, isDone: boolean) => {
+        dispatch(changeStatus({id, isDone}))
     }
 
     const render: ListRenderItem<TaskType> = ({item,}) => {
@@ -35,13 +43,13 @@ export const TasksList = () => {
     }
     return (
         <View>
-            <FlatList data={homeTasks}
+            <FlatList data={filteredTasks}
                       renderItem={render}
                       keyExtractor={item => item.id + ""}
                       showsVerticalScrollIndicator={false}
                       stickyHeaderIndices={[0]}
                       ItemSeparatorComponent={ItemDivider}
-                      ListHeaderComponent={Sort}
+                      ListHeaderComponent={Filter}
                       ListFooterComponent={MyButton({onPress: isModalHandler})}
                       ListFooterComponentStyle={styles.footer}/>
             <Modal
